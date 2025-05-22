@@ -10,9 +10,15 @@ import { Avatar } from '@/components/ui/avatar'
 import { AvatarImage } from '@radix-ui/react-avatar'
 import { db } from '@/lib/prisma'
 import { BarberShopItem } from '@/components/barbershop-item'
+import { Icon } from '@/components/icons'
 
 export default async function Home() {
   const barbershops = await db.barbershop.findMany({})
+  const popularBarberShops = await db.barbershop.findMany({
+    orderBy: {
+      name: 'desc',
+    },
+  })
 
   return (
     <div>
@@ -28,6 +34,29 @@ export default async function Home() {
           <Input id="search-input" placeholder="Faça sua busca..." />
           <Button>
             <SearchIcon />
+          </Button>
+        </div>
+
+        <div className="mt-6 flex gap-3">
+          <Button
+            aria-label="Busca rapida por corte de cabelo"
+            variant="secondary"
+          >
+            <Icon name="scissors" width={16} height={16} />
+            Cabelo
+          </Button>
+
+          <Button
+            aria-label="Busca rapida por corte de barba"
+            variant="secondary"
+          >
+            <Icon name="moustache" width={16} height={16} />
+            Barba
+          </Button>
+
+          <Button aria-label="Busca rapida por acabamento" variant="secondary">
+            <Icon name="blade" width={16} height={16} />
+            Acabamento
           </Button>
         </div>
 
@@ -73,7 +102,28 @@ export default async function Home() {
             <BarberShopItem key={barbershop.id} barbershop={barbershop} />
           ))}
         </div>
+
+        <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-700 dark:text-gray-400">
+          Populares
+        </h2>
+
+        <div className="flex gap-4 overflow-auto [&::-webkit-scrollbar]:hidden">
+          {popularBarberShops.map((barbershop) => (
+            <BarberShopItem key={barbershop.id} barbershop={barbershop} />
+          ))}
+        </div>
       </div>
+
+      <footer className="mt-8">
+        <Card className="rounded-none">
+          <CardContent className="px-5 py-6">
+            <p className="text-sm text-gray-400">
+              &copy; {new Date().getFullYear()} Copyright{' '}
+              <strong>FSW Barber</strong>
+            </p>
+          </CardContent>
+        </Card>
+      </footer>
     </div>
   )
 }
