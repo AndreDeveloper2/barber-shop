@@ -4,7 +4,6 @@ import { Input } from '@/components/ui/input'
 import { SearchIcon } from 'lucide-react'
 import { Label } from '@/components/ui/label'
 import Image from 'next/image'
-import { Card, CardContent } from '@/components/ui/card'
 import { db } from '@/lib/prisma'
 import { BarberShopItem } from '@/components/barbershop-item'
 import type React from 'react'
@@ -83,17 +82,6 @@ export default async function Home() {
           ))}
         </div>
       </div>
-
-      <footer className="mt-8">
-        <Card className="rounded-none">
-          <CardContent className="px-5 py-6">
-            <p className="text-sm text-gray-400">
-              &copy; {new Date().getFullYear()} Copyright{' '}
-              <strong>FSW Barber</strong>
-            </p>
-          </CardContent>
-        </Card>
-      </footer>
     </div>
   )
 }

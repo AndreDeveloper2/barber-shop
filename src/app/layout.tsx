@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 import './globals.css'
 import { ThemeProvider } from '@/components/theme/theme-provider'
+import { Toaster } from '@/components/ui/toaster'
+import { Footer } from '@/components/footer'
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -31,6 +33,8 @@ export default function RootLayout({
       >
         <ThemeProvider storageKey="barbershop-theme" defaultTheme="dark">
           {children}
+          <Toaster />
+          <Footer />
         </ThemeProvider>
       </body>
     </html>
